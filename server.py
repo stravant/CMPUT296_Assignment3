@@ -46,11 +46,11 @@ else:
 	exit(-1)
 
 (graph, metadata) = (None, None)
-try:
-	(graph, metadata) = read_graph(open(sourcefilename))
-except:
-	print("Could not open source graph file `%s` for reading" % sourcefilename)
-	exit(-1)
+#try:
+(graph, metadata) = read_graph(open(sourcefilename))
+#except:
+#	print("Could not open source graph file `%s` for reading" % sourcefilename)
+#	exit(-1)
 
 
 
@@ -109,6 +109,10 @@ def cost_distance(e):
 
 	# nothing more to do. In the future we could apply more modifications
 	# to the cost than just the distance here.
+	# add on the turn cost factor
+	turn_cost = metadata[(node_id_a, node_id_b)]
+	if turn_cost:
+		dist += turn_cost
 
 	# cost is exactly the distance for now, return it, in 100000's of a degree
 	return dist*100000
