@@ -6,7 +6,7 @@
 #include "map.h"
 #include "serial_handling.h"
 
-// #define DEBUG_PATH
+#define DEBUG_PATH
 
 /* path routine error code
    0 no error
@@ -117,5 +117,16 @@ uint8_t is_coord_visible(coord_t point) {
     }
 
 void draw_path(uint16_t length, coord_t path[]) {
+    for (int i = 0; i < length-1; ++i) {
+        //get coords
+        int x1 = longitude_to_x(current_map_num, path[ i ].lon) - screen_map_x;
+        int y1 = latitude_to_y( current_map_num, path[ i ].lat) - screen_map_y;
+        int x2 = longitude_to_x(current_map_num, path[i+1].lon) - screen_map_x;
+        int y2 = latitude_to_y( current_map_num, path[i+1].lat) - screen_map_y;
 
+        //clipping
+
+        //draw
+        tft.drawLine(x1, y1, x2, y2, tft.Color565(255,0,0));
+        }
     }

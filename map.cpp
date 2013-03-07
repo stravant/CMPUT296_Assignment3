@@ -4,7 +4,7 @@
 #include "lcd_image.h"
 #include "map.h"
 
-#define DEBUG
+// #define DEBUG
 
 /*
     Module to handle the display of map, cursor, and path information
@@ -188,19 +188,21 @@ uint8_t set_zoom() {
         
 
 void draw_map_screen() {
-    // Want to display a small message saying that we are redrawing the map!
-    tft.fillRect(78, 148, 50, 12, GREEN);
+    #ifdef DEBUG
+        // Want to display a small message saying that we are redrawing the map!
+        tft.fillRect(78, 148, 50, 12, GREEN);
 
-    tft.setTextSize(1);
-    tft.setTextColor(MAGENTA);
-    tft.setCursor(80, 150);
-    tft.setTextSize(1);
+        tft.setTextSize(1);
+        tft.setTextColor(MAGENTA);
+        tft.setCursor(80, 150);
+        tft.setTextSize(1);
 
-    tft.println("DRAWING...");
+        tft.println("DRAWING...");
+    #endif
 
     lcd_image_draw(&map_tiles[current_map_num], &tft,
                     screen_map_x, screen_map_y,
-                    0, 0, 128, 160);
+                    0, 0, display_window_width, display_window_height);
     
 }
 
@@ -303,3 +305,4 @@ void move_cursor_to(int16_t x, int16_t y) {
     cursor_lon = x_to_longitude(current_map_num, cursor_map_x);
     cursor_lat = y_to_latitude(current_map_num, cursor_map_y);
 }
+

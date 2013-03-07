@@ -45,6 +45,12 @@ typedef struct {
     int32_t E;  // longitude of SE corner
 } map_box_t;
 
+// a coordinate point for a path
+typedef struct {
+    int32_t lat;
+    int32_t lon;
+} coord_t;
+
 extern map_box_t map_box[];
 
 // conversion routines between lat and long and map pixel coordinates
